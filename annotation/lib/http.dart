@@ -45,7 +45,13 @@ class Method {
   /// See [RestApi.baseUrl] for details of how this is resolved against a base URL
   /// to create the full endpoint URL.
   final String path;
-  const Method(this.method, this.path);
+  
+  /// The base baseUrl for each request
+  ///
+  /// See [RestApi.baseUrl] for details of how this is resolved against a base URL
+  /// to create the full endpoint URL.
+  final String baseUrl;
+  const Method(this.method, this.path, {this.baseUrl});
 }
 
 /// Make a `GET` request
@@ -56,31 +62,36 @@ class Method {
 /// ```
 @immutable
 class GET extends Method {
-  const GET(String path) : super(HttpMethod.GET, path);
+  const GET(String path, {String baseUrl})
+      : super(HttpMethod.GET, path, baseUrl: baseUrl);
 }
 
 /// Make a `POST` request
 @immutable
 class POST extends Method {
-  const POST(String path) : super(HttpMethod.POST, path);
+  const POST(String path,{String baseUrl})
+      : super(HttpMethod.GET, path, baseUrl: baseUrl);
 }
 
 /// Make a `PATCH` request
 @immutable
 class PATCH extends Method {
-  const PATCH(final String path) : super(HttpMethod.PATCH, path);
+  const PATCH(final String path, {String baseUrl})
+      : super(HttpMethod.GET, path, baseUrl: baseUrl);;
 }
 
 /// Make a `PUT` request
 @immutable
 class PUT extends Method {
-  const PUT(final String path) : super(HttpMethod.PUT, path);
+  const PUT(final String path, {String baseUrl})
+      : super(HttpMethod.GET, path, baseUrl: baseUrl);
 }
 
 /// Make a `DELETE` request
 @immutable
 class DELETE extends Method {
-  const DELETE(final String path) : super(HttpMethod.DELETE, path);
+  const DELETE(final String path, {String baseUrl})
+      : super(HttpMethod.GET, path, baseUrl: baseUrl);
 }
 
 /// Adds headers specified in the [value] map.
